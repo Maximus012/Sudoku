@@ -4,6 +4,8 @@
 
 # def solving(board):
 #     rozwiązywanie sudoku
+#     tutaj powinno być dużo funkcji, żeby to ładnie wyglądało, porządek etc
+#     modularyzacja i te sprawy
 
 
 # def output(board):
