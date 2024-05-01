@@ -2,28 +2,57 @@ import tkinter as tk
 
 
 def input():
-    values = []
+    root = tk.Tk()
+    root.title("Sudoku")
+
+    instruction = tk.Label(root, text="Wprowadź cyfry:")
+    instruction.grid(row=0, column=0, columnspan=9, padx=5, pady=5)
+
+    entries = []
     for row in range(9):
-        row_values = []
+        row_entries = []
         for column in range(9):
-            row_values.append((entries[row][column].get()).strip())
-        values.append(row_values)
+            entry = tk.Entry(root, width=3)
+            entry.grid(row=row + 1, column=column, padx=5, pady=5)
+            row_entries.append(entry)
+        entries.append(row_entries)
 
-    valid_numbers = True
-    for row in range(9):
-        for column in range(9):
-            if values[row][column] != '' and invalid(values[row][column]):
-                valid_numbers = False
-                break
+    button = tk.Button(root, text="Potwierdź", command=root.quit)
+    button.grid(row=10, column=0, columnspan=9, padx=5, pady=5)
 
-    if not valid_numbers:
-        root.quit()
-        instruction = tk.Label(root, text="Niepoprawne dane wejściowe. Spróbuj ponownie:", fg="red")
-        instruction.grid(row=0, column=0, columnspan=9, padx=5, pady=5)
-        root.mainloop()
+    root.mainloop()
+    return get_values(root, entries, instruction)
 
-    root.quit()
+
+def get_values(root, entries, instruction):
+    while True:
+        values = []
+        for row in range(9):
+            row_values = []
+            for column in range(9):
+                row_values.append((entries[row][column].get()).strip())
+            values.append(row_values)
+
+        valid_numbers = True
+        for row in range(9):
+            for column in range(9):
+                if values[row][column] != '' and invalid(values[row][column]):
+                    valid_numbers = False
+                    break
+
+        if valid_numbers:
+            break
+        else:
+            error(root, instruction)
+
+    root.destroy()
     return values
+
+
+def error(root, instruction):
+    root.quit()
+    instruction.config(text="Niepoprawne dane wejściowe. Spróbuj ponownie.", fg="red")
+    root.mainloop()
 
 
 def invalid(value):
@@ -41,26 +70,3 @@ def if_digit(value):
     if 1 <= int(value) <= 9:
         return True
     return False
-
-
-invalid_numbers = False
-
-root = tk.Tk()
-root.title("Sudoku")
-
-instruction = tk.Label(root, text="Wprowadź cyfry:")
-instruction.grid(row=0, column=0, columnspan=9, padx=5, pady=5)
-
-entries = []
-for row in range(9):
-    row_entries = []
-    for column in range(9):
-        entry = tk.Entry(root, width=3)
-        entry.grid(row=row + 1, column=column, padx=5, pady=5)
-        row_entries.append(entry)
-    entries.append(row_entries)
-
-button = tk.Button(root, text="Potwierdź", command=input)
-button.grid(row=10, column=0, columnspan=9, padx=5, pady=5)
-
-root.mainloop()
