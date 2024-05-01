@@ -10,8 +10,8 @@ def output(board):
 
     for row in range(9):
         for column in range(9):
-            entry = tk.Label(root, text=board[row][column], bg="white", width=2)
-            entry.grid(row=row + 1, column=column, padx=5, pady=5)
+            result = tk.Label(root, text=board[row][column], bg="white", width=2)
+            result.grid(row=row + 1, column=column, padx=5, pady=5)
 
     button = tk.Button(root, text="Zakończ", command=root.destroy)
     button.grid(row=10, column=0, columnspan=9, padx=5, pady=5)
