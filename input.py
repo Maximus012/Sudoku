@@ -65,17 +65,17 @@ def error(root, instruction):
 
 
 def invalid(value):
-    if is_integer(value):
-        if is_digit(value):
+    if if_integer(value):
+        if if_digit(value):
             return False
     return True
 
 
-def is_integer(value):
+def if_integer(value):
     return str(value).isdigit()
 
 
-def is_digit(value):
+def if_digit(value):
     if 1 <= int(value) <= 9:
         return True
     return False
